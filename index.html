@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="name" content="ReelScout">
+  <meta name="keywords" content="Search Instagram Reels, how to find an instagram reel you saw">
+  <meta name="description"
+    content="Instagram Reels Search Sucks. Presenting ReelScout. Find Instagram reels by Title, Description, or Creator, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://meowdyyy.github.io/ReelScout-v2/">
+  <meta property="og:title" content="ReelScout">
+  <meta property="twitter:title" content="ReelScout">
+  <meta name="og:description"
+    content="Instagram Reels Search Sucks. Presenting ReelScout. Find Instagram reels by Title, Description, or Creator, and more.">
+  <meta name="twitter:description"
+    content="Instagram Reels Search Sucks. Presenting ReelScout. Find Instagram reels by Title, Description, or Creator, and more.">
+  <meta property="og:image" content="favicon.svg">
+  <meta property="twitter:image" content="favicon.svg">
+  <title>ReelScout - Find Instagram Reels</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <script async src="https://cse.google.com/cse.js?cx=e500c3a7a523b49df"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z8ZKHC2WCZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-Z8ZKHC2WCZ');
+  </script>
+
+  <style>
+    :root {
+      --bg-a: #fff4df;
+      --bg-b: #dceeff;
+      --panel: rgba(255, 255, 255, 0.85);
+      --panel-border: rgba(255, 255, 255, 0.95);
+      --text: #1c2230;
+      --muted: #5a6478;
+      --accent: #f45158;
+      --accent-2: #176fdb;
+      --shadow: 0 18px 52px rgba(17, 34, 73, 0.18);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      color: var(--text);
+      font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(160deg, var(--bg-a) 0%, var(--bg-b) 100%);
+      overflow-x: hidden;
+    }
+
+    .ambient {
+      position: fixed;
+      border-radius: 999px;
+      pointer-events: none;
+      filter: blur(6px);
+      z-index: 0;
+      animation: drift 10s ease-in-out infinite;
+    }
+
+    .ambient-a {
+      width: 320px;
+      height: 320px;
+      top: -100px;
+      left: -90px;
+      background: radial-gradient(circle at 35% 35%, rgba(244, 81, 88, 0.35), rgba(244, 81, 88, 0));
+    }
+
+    .ambient-b {
+      width: 380px;
+      height: 380px;
+      right: -120px;
+      top: 24%;
+      animation-delay: -4s;
+      background: radial-gradient(circle at 40% 40%, rgba(23, 111, 219, 0.28), rgba(23, 111, 219, 0));
+    }
+
+    .ambient-c {
+      width: 260px;
+      height: 260px;
+      left: 30%;
+      bottom: -90px;
+      animation-delay: -7s;
+      background: radial-gradient(circle at 45% 45%, rgba(255, 160, 60, 0.34), rgba(255, 160, 60, 0));
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(940px, calc(100% - 2rem));
+      margin: clamp(0.8rem, 2vw, 2rem) auto;
+      padding: clamp(1.1rem, 2.8vw, 2.1rem);
+      border-radius: var(--radius);
+      border: 1px solid var(--panel-border);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      animation: rise 0.6s ease-out both;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0.45rem 0 0;
+      font-family: "Bricolage Grotesque", "Avenir Next", sans-serif;
+      font-size: clamp(2rem, 4.1vw, 3.15rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-title {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+    }
+
+    .brand-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .brand-home:focus-visible {
+      outline: 2px solid rgba(23, 111, 219, 0.6);
+      outline-offset: 6px;
+      border-radius: 10px;
+    }
+
+    .insta-logo {
+      width: clamp(1.6rem, 2.4vw, 2rem);
+      height: clamp(1.6rem, 2.4vw, 2rem);
+      fill: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .subtitle {
+      margin: 0.7rem auto 0;
+      max-width: 44ch;
+      color: var(--muted);
+      font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    }
+
+    .search-panel {
+      margin-top: 1.2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.9);
+      padding: clamp(0.9rem, 2.4vw, 1.3rem);
+    }
+
+    .search-label {
+      margin: 0 0 0.65rem;
+      text-align: center;
+      color: #344159;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .chip-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 0.34rem 0.68rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #283147;
+      background: linear-gradient(120deg, rgba(23, 111, 219, 0.15), rgba(244, 81, 88, 0.12));
+    }
+
+    .gcsc-find-more-on-google-root,
+    .gsc-above-wrapper-area,
+    .gcsc-branding,
+    .gsc-branding,
+    .gcsc-more-maybe-branding-root,
+    .gsc-resultsHeader,
+    .gsc-cursor-box .gsc-cursor-current-page,
+    .gsc-refinementsArea {
+      display: none;
+    }
+
+    .gsc-control-cse {
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif !important;
+    }
+
+    .gsc-search-box,
+    .gsc-search-box-tools {
+      margin-bottom: 0 !important;
+    }
+
+    .gsib_a {
+      padding: 0 !important;
+      width: 100% !important;
+    }
+
+    .gsc-input-box table,
+    .gsc-input-box tbody,
+    .gsc-input-box tr,
+    .gsc-input-box td {
+      border: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      vertical-align: middle !important;
+    }
+
+    .gsc-input-box .gscb_a,
+    .gsc-input-box .gscb_a * {
+      display: none !important;
+      width: 0 !important;
+    }
+
+    .gsc-input-box {
+      border: 2px solid rgba(31, 44, 76, 0.12) !important;
+      border-radius: 14px !important;
+      background: #fff !important;
+      height: 50px !important;
+      padding: 0 0.6rem !important;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .gsc-input-box:focus-within {
+      border-color: rgba(244, 81, 88, 0.48) !important;
+      box-shadow: 0 0 0 4px rgba(244, 81, 88, 0.12);
+    }
+
+    input.gsc-input,
+    .gsib_a input {
+      background: transparent !important;
+      background-image: none !important;
+      font-size: 1rem !important;
+      color: #1f2738 !important;
+      padding: 0 0.9rem !important;
+      text-indent: 0 !important;
+      margin: 0 !important;
+      line-height: 1.5 !important;
+      height: 46px !important;
+      box-shadow: none !important;
+    }
+
+    .gsib_b,
+    .gsst_b {
+      display: none !important;
+    }
+
+    .gsc-search-button-v2 {
+      border-radius: 14px !important;
+      border: 0 !important;
+      background: linear-gradient(120deg, var(--accent), #ff7b3f) !important;
+      padding: 13px 16px !important;
+      cursor: pointer;
+    }
+
+    .gsc-search-button-v2:hover,
+    .gsc-search-button-v2:focus {
+      filter: saturate(1.07);
+    }
+
+    .gsc-results-wrapper-visible {
+      margin-top: 0.9rem;
+      border-top: 1px solid rgba(31, 44, 76, 0.08);
+      padding-top: 0.9rem;
+    }
+
+    .gsc-webResult.gsc-result,
+    .gsc-result {
+      border: 1px solid rgba(31, 44, 76, 0.08) !important;
+      border-radius: 12px !important;
+      padding: 0.75rem 0.85rem !important;
+      margin-bottom: 0.55rem !important;
+      background: #ffffff !important;
+      transition: transform 0.14s ease, border-color 0.14s ease;
+    }
+
+    .gsc-webResult.gsc-result:hover {
+      transform: translateY(-1px);
+      border-color: rgba(23, 111, 219, 0.32) !important;
+    }
+
+    .gsc-result .gs-title,
+    .gsc-result .gs-title b {
+      color: #213459 !important;
+      text-decoration: none !important;
+      font-weight: 700 !important;
+    }
+
+    .gsc-result .gs-title:hover {
+      color: #f45158 !important;
+    }
+
+    .gsc-result .gs-snippet,
+    .gsc-result .gs-visibleUrl {
+      color: #5e6a80 !important;
+    }
+
+    .footer {
+      margin-top: 0.85rem;
+      text-align: center;
+      color: #687185;
+      font-size: 0.8rem;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes drift {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(14px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        width: calc(100% - 1rem);
+        margin: 0.5rem auto;
+        border-radius: 18px;
+      }
+
+      .search-panel {
+        border-radius: 13px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <div class="ambient ambient-c" aria-hidden="true"></div>
+
+  <main class="page">
+    <header class="header">
+      <p class="eyebrow">Search Better</p>
+      <h1 class="brand-title">
+        <a class="brand-home" href="index.html" aria-label="Go to ReelScout home page">
+          <svg class="insta-logo" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path d="M8 0C5.826 0 5.555.01 4.703.048c-.85.038-1.43.174-1.938.372a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .423 2.765c-.197.509-.333 1.087-.372 1.938C.014 5.556 0 5.827 0 8.001c0 2.174.01 2.445.048 3.297.038.85.174 1.43.372 1.938.205.527.48.974.923 1.417.443.443.89.718 1.417.923.509.197 1.087.333 1.938.372C5.555 15.986 5.826 16 8 16c2.174 0 2.445-.01 3.297-.048.85-.038 1.43-.174 1.938-.372a3.932 3.932 0 0 0 1.417-.923 3.932 3.932 0 0 0 .923-1.417c.197-.509.333-1.087.372-1.938C15.986 10.446 16 10.175 16 8.001c0-2.174-.01-2.445-.048-3.297-.038-.85-.174-1.43-.372-1.938a3.917 3.917 0 0 0-.923-1.417A3.917 3.917 0 0 0 13.235.423c-.509-.197-1.087-.333-1.938-.372C10.445.014 10.174 0 8 0zm0 1.441c2.138 0 2.391.008 3.232.046.778.036 1.2.165 1.48.274.372.144.638.316.918.596.28.28.452.546.596.918.109.28.238.702.274 1.48.038.841.046 1.094.046 3.232s-.008 2.391-.046 3.232c-.036.778-.165 1.2-.274 1.48a2.48 2.48 0 0 1-.596.918 2.48 2.48 0 0 1-.918.596c-.28.109-.702.238-1.48.274-.841.038-1.094.046-3.232.046s-2.391-.008-3.232-.046c-.778-.036-1.2-.165-1.48-.274a2.471 2.471 0 0 1-.918-.596 2.471 2.471 0 0 1-.596-.918c-.109-.28-.238-.702-.274-1.48-.038-.841-.046-1.094-.046-3.232s.008-2.391.046-3.232c.036-.778.165-1.2.274-1.48.144-.372.316-.638.596-.918.28-.28.546-.452.918-.596.28-.109.702-.238 1.48-.274.841-.038 1.094-.046 3.232-.046z" />
+            <path d="M8 3.892A4.108 4.108 0 1 0 8 12.108 4.108 4.108 0 1 0 8 3.892zm0 6.775A2.667 2.667 0 1 1 8 5.333a2.667 2.667 0 0 1 0 5.334z" />
+            <circle cx="12.27" cy="3.73" r=".96" />
+          </svg>
+          ReelScout
+        </a>
+      </h1>
+      <p class="subtitle">Find Instagram reels by title, description, hashtags and creator in one place.</p>
+    </header>
+
+    <section class="search-panel" aria-label="Reels search">
+      <!-- <p class="search-label">Search Reels Like It Should Be</p> -->
+      <div class="chip-row" aria-hidden="true">
+        <span class="chip">Title</span>
+        <span class="chip">Description</span>
+        <span class="chip">Hashtags</span>
+        <span class="chip">Creator</span>
+      </div>
+      <div class="gcse-search"></div>
+    </section>
+
+    <p class="footer">Hey Instagram, Great Reels. Terrible search. Fix it.</p>
+  </main>
+</body>
+
+</html>
